@@ -1,6 +1,7 @@
 const router = require('express').Router()
-
-const { Blog } = require('../models')
+const jwt = require('jsonwebtoken')
+const { Blog, User } = require('../models')
+const { SECRET } = require('../util/config')
 
 const blogFinder = async (req, res, next) => {
     const blog = await Blog.findByPk(req.params.id)
@@ -13,6 +14,20 @@ const blogFinder = async (req, res, next) => {
     next()
 }
 
+const tokenExtractor = (req, res, next) => {
+    const authorization = req.get('authorization')
+    if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
+        try {
+            req.decodedToken = jwt.verify(authorization.substring(7), SECRET)
+        } catch {
+            return res.status(401).json({ error: 'token invalid' })
+        }
+    } else {
+        return res.status(401).json({ error: 'token missing' })
+    }
+    next()
+}
+
 router.get('/', async (req, res) => {
     const blogs = await Blog.findAll()
     res.json(blogs)
@@ -22,7 +37,7 @@ router.get('/:id', blogFinder, async (req, res) => {
     res.json(req.blog)
 })
 
-router.post('/', async (req, res) => {
+router.post('/', tokenExtractor, async (req, res) => {
     //Required fields title and url are already validated by the model, as are types
 
     //To make sure no superfluous fields are included we can check the fields of the model
@@ -34,8 +49,8 @@ router.post('/', async (req, res) => {
         error.status = 400
         throw error
     }
-
-    const blog = await Blog.create(req.body) //express-async-errors will pass errors here to errorHandler
+    const user = await User.findByPk(req.decodedToken.id)
+    const blog = await Blog.create({ ...req.body, userId: user.id }) //express-async-errors will pass errors here to errorHandler
     res.json(blog)
 })
 

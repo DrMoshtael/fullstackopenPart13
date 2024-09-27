@@ -1,0 +1,8 @@
+POST http://localhost:3001/api/notes 
+Content-Type: application/json 
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imhvd2FyZCIsImlkIjoxLCJpYXQiOjE3Mjc0MzA4MjV9.LhvRtyNwkRHJPGsP66lqoyZQocTG5JrKXH_zPG0ufhE
+
+{
+"content": "Relational databases rule the world", 
+"important": true
+}

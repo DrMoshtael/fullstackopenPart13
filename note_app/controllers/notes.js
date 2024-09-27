@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const { SECRET } = require('../util/config')
-
+const jwt = require('jsonwebtoken')
 const { User, Note } = require('../models')
 
 const tokenExtractor = (req, res, next) => {
@@ -28,7 +28,7 @@ router.get('/', async (req, res) => {
   res.json(notes)
 })
 
-router.post('/', async (req, res) => {
+router.post('/', tokenExtractor, async (req, res) => {
   try {
     const user = await User.findByPk(req.decodedToken.id)
     const note = await Note.create({...req.body, userId: user.id, date: new Date()})

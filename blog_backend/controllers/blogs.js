@@ -30,13 +30,19 @@ const tokenExtractor = (req, res, next) => {
 }
 
 router.get('/', async (req, res) => {
-    const where = {}
-    if (req.query.search) {
-        where.title = {
-            [Op.substring]: req.query.search
+    // const where = {}
+    // if (req.query.search) {
+    //     where.title = {
+    //         [Op.substring]: req.query.search
+    //     }
+    // }
+    const search_query = { [Op.substring]: req.query.search }
+    const where = req.query.search 
+        ? {
+            [Op.or]: [{ title: search_query }, { author: search_query }]
         }
-    }
-
+        : {}
+    
     const blogs = await Blog.findAll({
         attributes: { exclude: ['userId'] },
         include: {

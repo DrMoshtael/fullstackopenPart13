@@ -24,8 +24,7 @@ module.exports = {
                 defaultValue: 0
             },
             created_at: {
-                type: DataTypes.DATE,
-                allowNull: false
+                type: DataTypes.DATE
             },
             updated_at: {
                 type: DataTypes.DATE
@@ -50,8 +49,7 @@ module.exports = {
                 allowNull: false
             },
             created_at: {
-                type: DataTypes.DATE,
-                allowNull: false
+                type: DataTypes.DATE
             },
             updated_at: {
                 type: DataTypes.DATE

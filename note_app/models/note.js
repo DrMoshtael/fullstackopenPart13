@@ -1,3 +1,4 @@
+
 const { Model, DataTypes } = require('sequelize')
 
 const { sequelize } = require('../util/db')
@@ -15,8 +16,7 @@ Note.init({
     allowNull: false
   },
   important: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false
+    type: DataTypes.BOOLEAN
   },
   date: {
     type: DataTypes.DATE

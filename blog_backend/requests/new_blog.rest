@@ -3,7 +3,8 @@ Content-Type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imhvd2FyZDJAcG9vbWFpbC5wb28iLCJpZCI6MSwiaWF0IjoxNzI3NDMxMDU3fQ.0ZshTMjuKnjouYmUiRl-gDnFTnQS67Ctfr4E5QmZxq0
 
 {
-    "author": "Nothing here",
-    "title": "Testing or",
-    "url": "www.test4.com"
+    "author": "Test man X",
+    "title": "Testing X3",
+    "url": "www.testX.com",
+    "likes": 3
 }

@@ -1,0 +1,7 @@
+POST http://localhost:3002/api/readinglists
+Content-Type: application/json
+
+{
+    "blogId": 5,
+    "userId": 1
+}

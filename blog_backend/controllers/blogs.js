@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const { Blog, User } = require('../models')
 const { Op } = require('sequelize')
-const { tokenExtractor } = require('../util/middleware')
+const { tokenExtractor, sessionChecker } = require('../util/middleware')
 
 const blogFinder = async (req, res, next) => {
     const blog = await Blog.findByPk(req.params.id)
@@ -44,7 +44,7 @@ router.get('/:id', blogFinder, async (req, res) => {
     res.json(req.blog)
 })
 
-router.post('/', tokenExtractor, async (req, res) => {
+router.post('/', tokenExtractor, sessionChecker, async (req, res) => {
     //Required fields title and url are already validated by the model, as are types
 
     //To make sure no superfluous fields are included we can check the fields of the model
@@ -61,7 +61,7 @@ router.post('/', tokenExtractor, async (req, res) => {
     res.json(blog)
 })
 
-router.delete('/:id', tokenExtractor, blogFinder, async (req, res) => {
+router.delete('/:id', tokenExtractor, sessionChecker, blogFinder, async (req, res) => {
     if (req.blog && req.decodedToken.id === req.blog.userId) {
         await req.blog.destroy()
     }

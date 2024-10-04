@@ -49,6 +49,9 @@ router.put('/:username', async (req, res) => {
             username: req.params.username
         }
     })
+
+    if (!user) return res.status(404).json({ error: 'user not found' })
+
     user.username = req.body.username
     user.save()
     res.json(user)

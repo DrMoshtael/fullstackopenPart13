@@ -10,6 +10,7 @@ const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
 const authorsRouter = require('./controllers/authors')
 const readingListsRouter = require('./controllers/readingLists')
+const logoutRouter = require('./controllers/logout')
 
 const { errorHandler, unknownEndpoint } = require('./util/errorHandling')
 
@@ -20,6 +21,7 @@ app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
 app.use('/api/authors', authorsRouter)
 app.use('/api/readinglists', readingListsRouter)
+app.use('/api/logout', logoutRouter)
 
 app.use(unknownEndpoint)
 
